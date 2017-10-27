@@ -17,3 +17,7 @@ C:\Users\a-fau\onedrive\documentos\visual studio 2015\Projects\Sistema_CPC\Siste
 C:\Users\a-fau\onedrive\documentos\visual studio 2015\Projects\Sistema_CPC\Sistema_CPC\obj\Debug\Sistema_CPC.xml
 C:\Users\a-fau\onedrive\documentos\visual studio 2015\Projects\Sistema_CPC\Sistema_CPC\obj\Debug\Sistema_CPC.pdb
 C:\Users\a-fau\OneDrive\Documentos\Visual Studio 2015\Projects\Sistema_CPC\Sistema_CPC\obj\Debug\Sistema_CPC.vbprojResolveAssemblyReference.cache
+C:\Users\a-fau\OneDrive\Documentos\GitHub\Segundo_Ex-men_Parcial_DG\Sistema_CPC\bin\Debug\Sistema_CPC.exe.config
+C:\Users\a-fau\OneDrive\Documentos\GitHub\Segundo_Ex-men_Parcial_DG\Sistema_CPC\obj\Debug\Sistema_CPC.exe
+C:\Users\a-fau\OneDrive\Documentos\GitHub\Segundo_Ex-men_Parcial_DG\Sistema_CPC\obj\Debug\Sistema_CPC.xml
+C:\Users\a-fau\OneDrive\Documentos\GitHub\Segundo_Ex-men_Parcial_DG\Sistema_CPC\obj\Debug\Sistema_CPC.pdb

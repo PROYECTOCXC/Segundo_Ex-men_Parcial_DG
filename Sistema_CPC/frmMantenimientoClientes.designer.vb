@@ -239,7 +239,7 @@ Partial Class frmMantenimientoClientes
         '
         Me.cbxOpciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbxOpciones.FormattingEnabled = True
-        Me.cbxOpciones.Location = New System.Drawing.Point(183, 28)
+        Me.cbxOpciones.Location = New System.Drawing.Point(207, 25)
         Me.cbxOpciones.Name = "cbxOpciones"
         Me.cbxOpciones.Size = New System.Drawing.Size(201, 24)
         Me.cbxOpciones.TabIndex = 0
