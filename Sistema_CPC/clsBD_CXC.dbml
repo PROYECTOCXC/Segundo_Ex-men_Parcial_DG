@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BD_CPC" Class="clsBD_CXCDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-R8ULCNP\SQLEXPRESS;Initial Catalog=BD_CPC;Integrated Security=True" SettingsObjectName="Sistema_CPC.My.MySettings" SettingsPropertyName="BD_CPCConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.actualizarCredito" Method="actualizarCredito">
+    <Parameter Name="ID_Credito" Parameter="iD_Credito" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nuevo_Monto_Pendiente" Parameter="nuevo_Monto_Pendiente" Type="System.Decimal" DbType="Money" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.actualizarSaldoCrediticio" Method="actualizarSaldoCrediticio">
+    <Parameter Name="ID_Cliente" Parameter="iD_Cliente" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nuevo_Saldo" Parameter="nuevo_Saldo" Type="System.Decimal" DbType="Money" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.muestraClientes" Method="muestraClientes">
+    <ElementType Name="muestraClientesResult">
+      <Column Name="Código" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Cliente" Type="System.String" DbType="NVarChar(72) NOT NULL" CanBeNull="false" />
+      <Column Name="Identificación" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="[Fecha de Nacimiento]" Member="Fecha_de_Nacimiento" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="[Salario Neto]" Member="Salario_Neto" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="[Límite Crediticio]" Member="Límite_Crediticio" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="[Saldo Crediticio]" Member="Saldo_Crediticio" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Dirección" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.muestraCreditos" Method="muestraCreditos">
+    <ElementType Name="muestraCreditosResult">
+      <Column Name="[Código Crédito]" Member="Código_Crédito" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Código Cliente]" Member="Código_Cliente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Cliente" Type="System.String" DbType="NVarChar(72) NOT NULL" CanBeNull="false" />
+      <Column Name="[Monto Total]" Member="Monto_Total" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="[Monto Pendiente]" Member="Monto_Pendiente" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="[Saldo Crediticio]" Member="Saldo_Crediticio" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Cuotas" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="[Plazo (Meses)]" Member="Plazo__Meses_" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Inicio del Crédito]" Member="Inicio_del_Crédito" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.muestraUsuarios" Method="muestraUsuarios">
+    <ElementType Name="muestraUsuariosResult">
+      <Column Name="Código" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Usuario" Type="System.String" DbType="NVarChar(72) NOT NULL" CanBeNull="false" />
+      <Column Name="NickName" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Contraseña" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Puesto" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.muestraAbonos" Method="muestraAbonos">
+    <ElementType Name="muestraAbonosResult">
+      <Column Name="Cliente" Type="System.String" DbType="NVarChar(72) NOT NULL" CanBeNull="false" />
+      <Column Name="Identificación" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Cuota" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="[Monto Total]" Member="Monto_Total" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="[Monto Pendiente]" Member="Monto_Pendiente" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="[Fecha del Abono]" Member="Fecha_del_Abono" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BD_CoCoCredModelStoreContainer" CdmEntityContainer="BD_CoCoCredEntities">
+    <EntitySetMapping Name="Abo_Abonos">
+      <EntityTypeMapping TypeName="BD_CoCoCredModel.Abo_Abonos">
+        <MappingFragment StoreEntitySet="Abo_Abonos">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Abo_Fecha" ColumnName="Abo_Fecha" />
+          <ScalarProperty Name="Cre_ID_Credito" ColumnName="Cre_ID_Credito" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cli_Clientes">
+      <EntityTypeMapping TypeName="BD_CoCoCredModel.Cli_Clientes">
+        <MappingFragment StoreEntitySet="Cli_Clientes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Cli_Nombre" ColumnName="Cli_Nombre" />
+          <ScalarProperty Name="Cli_Primer_Apellido" ColumnName="Cli_Primer_Apellido" />
+          <ScalarProperty Name="Cli_Segundo_Apellido" ColumnName="Cli_Segundo_Apellido" />
+          <ScalarProperty Name="Cli_Identificacion" ColumnName="Cli_Identificacion" />
+          <ScalarProperty Name="Cli_Fecha_Nacimiento" ColumnName="Cli_Fecha_Nacimiento" />
+          <ScalarProperty Name="Cli_Salario_Neto" ColumnName="Cli_Salario_Neto" />
+          <ScalarProperty Name="Cli_Limite_Crediticio" ColumnName="Cli_Limite_Crediticio" />
+          <ScalarProperty Name="Cli_Saldo_Crediticio" ColumnName="Cli_Saldo_Crediticio" />
+          <ScalarProperty Name="Cli_Direccion_Residencia" ColumnName="Cli_Direccion_Residencia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cra_Creditos_Atrasados">
+      <EntityTypeMapping TypeName="BD_CoCoCredModel.Cra_Creditos_Atrasados">
+        <MappingFragment StoreEntitySet="Cra_Creditos_Atrasados">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Cra_Dias" ColumnName="Cra_Dias" />
+          <ScalarProperty Name="Cra_Intereses" ColumnName="Cra_Intereses" />
+          <ScalarProperty Name="Cre_ID_Credito" ColumnName="Cre_ID_Credito" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cre_Creditos">
+      <EntityTypeMapping TypeName="BD_CoCoCredModel.Cre_Creditos">
+        <MappingFragment StoreEntitySet="Cre_Creditos">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Cre_Monto_Total" ColumnName="Cre_Monto_Total" />
+          <ScalarProperty Name="Cre_Monto_Pendiente" ColumnName="Cre_Monto_Pendiente" />
+          <ScalarProperty Name="Cre_Cuotas" ColumnName="Cre_Cuotas" />
+          <ScalarProperty Name="Cre_Plazo" ColumnName="Cre_Plazo" />
+          <ScalarProperty Name="Cre_Fecha_Inicial" ColumnName="Cre_Fecha_Inicial" />
+          <ScalarProperty Name="Usu_ID_Usuario" ColumnName="Usu_ID_Usuario" />
+          <ScalarProperty Name="Cli_ID_Cliente" ColumnName="Cli_ID_Cliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tel_Telefonos">
+      <EntityTypeMapping TypeName="BD_CoCoCredModel.Tel_Telefonos">
+        <MappingFragment StoreEntitySet="Tel_Telefonos">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Tel_Descripcion" ColumnName="Tel_Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tip_Tipos_Usuarios">
+      <EntityTypeMapping TypeName="BD_CoCoCredModel.Tip_Tipos_Usuarios">
+        <MappingFragment StoreEntitySet="Tip_Tipos_Usuarios">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Tip_Puesto" ColumnName="Tip_Puesto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tpc_Telefonos_Por_Cliente">
+      <EntityTypeMapping TypeName="BD_CoCoCredModel.Tpc_Telefonos_Por_Cliente">
+        <MappingFragment StoreEntitySet="Tpc_Telefonos_Por_Cliente">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Cli_ID_Cliente" ColumnName="Cli_ID_Cliente" />
+          <ScalarProperty Name="Tel_ID_Telefono" ColumnName="Tel_ID_Telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usu_Usuarios">
+      <EntityTypeMapping TypeName="BD_CoCoCredModel.Usu_Usuarios">
+        <MappingFragment StoreEntitySet="Usu_Usuarios">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Usu_Nombre" ColumnName="Usu_Nombre" />
+          <ScalarProperty Name="Usu_Primer_Apellido" ColumnName="Usu_Primer_Apellido" />
+          <ScalarProperty Name="Usu_Segundo_Apellido" ColumnName="Usu_Segundo_Apellido" />
+          <ScalarProperty Name="Usu_Nick" ColumnName="Usu_Nick" />
+          <ScalarProperty Name="Usu_Contraseña" ColumnName="Usu_Contraseña" />
+          <ScalarProperty Name="Tip_ID_Tipo_Usuario" ColumnName="Tip_ID_Tipo_Usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="actualizarCredito" FunctionName="BD_CoCoCredModel.Store.actualizarCredito" />
+    <FunctionImportMapping FunctionImportName="actualizarSaldoCrediticio" FunctionName="BD_CoCoCredModel.Store.actualizarSaldoCrediticio" />
+    <FunctionImportMapping FunctionImportName="muestraAbonos" FunctionName="BD_CoCoCredModel.Store.muestraAbonos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BD_CoCoCredModel.muestraAbonos_Result">
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Identificación" ColumnName="Identificación" />
+          <ScalarProperty Name="Cuota" ColumnName="Cuota" />
+          <ScalarProperty Name="Monto_Total" ColumnName="Monto Total" />
+          <ScalarProperty Name="Monto_Pendiente" ColumnName="Monto Pendiente" />
+          <ScalarProperty Name="Fecha_del_Abono" ColumnName="Fecha del Abono" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="muestraCreditos" FunctionName="BD_CoCoCredModel.Store.muestraCreditos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BD_CoCoCredModel.muestraCreditos_Result">
+          <ScalarProperty Name="Código_Crédito" ColumnName="Código Crédito" />
+          <ScalarProperty Name="Código_Cliente" ColumnName="Código Cliente" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Monto_Total" ColumnName="Monto Total" />
+          <ScalarProperty Name="Monto_Pendiente" ColumnName="Monto Pendiente" />
+          <ScalarProperty Name="Saldo_Crediticio" ColumnName="Saldo Crediticio" />
+          <ScalarProperty Name="Cuotas" ColumnName="Cuotas" />
+          <ScalarProperty Name="Plazo__Meses_" ColumnName="Plazo (Meses)" />
+          <ScalarProperty Name="Inicio_del_Crédito" ColumnName="Inicio del Crédito" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="muestraUsuarios" FunctionName="BD_CoCoCredModel.Store.muestraUsuarios">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BD_CoCoCredModel.muestraUsuarios_Result">
+          <ScalarProperty Name="Código" ColumnName="Código" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido Paterno" />
+          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido Materno" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+          <ScalarProperty Name="Puesto" ColumnName="Puesto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

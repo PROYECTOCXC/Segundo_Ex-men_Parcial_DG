@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BD_CoCoCredModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Abo_Abonos">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Abo_Fecha" Type="date" Nullable="false" />
+    <Property Name="Cre_ID_Credito" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cli_Clientes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cli_Nombre" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Cli_Primer_Apellido" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Cli_Segundo_Apellido" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Cli_Identificacion" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Cli_Fecha_Nacimiento" Type="date" Nullable="false" />
+    <Property Name="Cli_Salario_Neto" Type="money" Nullable="false" />
+    <Property Name="Cli_Limite_Crediticio" Type="money" Nullable="false" />
+    <Property Name="Cli_Saldo_Crediticio" Type="money" Nullable="false" />
+    <Property Name="Cli_Direccion_Residencia" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cra_Creditos_Atrasados">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cra_Dias" Type="int" Nullable="false" />
+    <Property Name="Cra_Intereses" Type="money" Nullable="false" />
+    <Property Name="Cre_ID_Credito" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cre_Creditos">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cre_Monto_Total" Type="money" Nullable="false" />
+    <Property Name="Cre_Monto_Pendiente" Type="money" Nullable="false" />
+    <Property Name="Cre_Cuotas" Type="money" Nullable="false" />
+    <Property Name="Cre_Plazo" Type="int" Nullable="false" />
+    <Property Name="Cre_Fecha_Inicial" Type="date" Nullable="false" />
+    <Property Name="Usu_ID_Usuario" Type="int" Nullable="false" />
+    <Property Name="Cli_ID_Cliente" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tel_Telefonos">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tel_Descripcion" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tip_Tipos_Usuarios">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tip_Puesto" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tpc_Telefonos_Por_Cliente">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cli_ID_Cliente" Type="int" Nullable="false" />
+    <Property Name="Tel_ID_Telefono" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usu_Usuarios">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usu_Nombre" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Usu_Primer_Apellido" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Usu_Segundo_Apellido" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Usu_Nick" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Usu_Contraseña" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Tip_ID_Tipo_Usuario" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Abo_Abonos_Cre_Creditos">
+    <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="1" />
+    <End Role="Abo_Abonos" Type="Self.Abo_Abonos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cre_Creditos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Abo_Abonos">
+        <PropertyRef Name="Cre_ID_Credito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cra_Creditos_Atrasados_Cre_Creditos">
+    <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="1" />
+    <End Role="Cra_Creditos_Atrasados" Type="Self.Cra_Creditos_Atrasados" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cre_Creditos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cra_Creditos_Atrasados">
+        <PropertyRef Name="Cre_ID_Credito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cre_Creditos_Cli_Clientes">
+    <End Role="Cli_Clientes" Type="Self.Cli_Clientes" Multiplicity="1" />
+    <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cli_Clientes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cre_Creditos">
+        <PropertyRef Name="Cli_ID_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cre_Creditos_Usu_Usuarios">
+    <End Role="Usu_Usuarios" Type="Self.Usu_Usuarios" Multiplicity="1" />
+    <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usu_Usuarios">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cre_Creditos">
+        <PropertyRef Name="Usu_ID_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tpc_Telefonos_Por_Cliente_Cli_Clientes">
+    <End Role="Cli_Clientes" Type="Self.Cli_Clientes" Multiplicity="1" />
+    <End Role="Tpc_Telefonos_Por_Cliente" Type="Self.Tpc_Telefonos_Por_Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cli_Clientes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tpc_Telefonos_Por_Cliente">
+        <PropertyRef Name="Cli_ID_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tpc_Telefonos_Por_Cliente_Tel_Telefonos">
+    <End Role="Tel_Telefonos" Type="Self.Tel_Telefonos" Multiplicity="1" />
+    <End Role="Tpc_Telefonos_Por_Cliente" Type="Self.Tpc_Telefonos_Por_Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tel_Telefonos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tpc_Telefonos_Por_Cliente">
+        <PropertyRef Name="Tel_ID_Telefono" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usu_Usuarios_Tip_Tipos_Usuarios">
+    <End Role="Tip_Tipos_Usuarios" Type="Self.Tip_Tipos_Usuarios" Multiplicity="1" />
+    <End Role="Usu_Usuarios" Type="Self.Usu_Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tip_Tipos_Usuarios">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Usu_Usuarios">
+        <PropertyRef Name="Tip_ID_Tipo_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="actualizarCredito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_Credito" Type="int" Mode="In" />
+    <Parameter Name="Nuevo_Monto_Pendiente" Type="money" Mode="In" />
+  </Function>
+  <Function Name="actualizarSaldoCrediticio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_Cliente" Type="int" Mode="In" />
+    <Parameter Name="Nuevo_Saldo" Type="money" Mode="In" />
+  </Function>
+  <Function Name="muestraAbonos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="muestraCreditos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="muestraUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="BD_CoCoCredModelStoreContainer">
+    <EntitySet Name="Abo_Abonos" EntityType="Self.Abo_Abonos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cli_Clientes" EntityType="Self.Cli_Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cra_Creditos_Atrasados" EntityType="Self.Cra_Creditos_Atrasados" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cre_Creditos" EntityType="Self.Cre_Creditos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tel_Telefonos" EntityType="Self.Tel_Telefonos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tip_Tipos_Usuarios" EntityType="Self.Tip_Tipos_Usuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tpc_Telefonos_Por_Cliente" EntityType="Self.Tpc_Telefonos_Por_Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usu_Usuarios" EntityType="Self.Usu_Usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Abo_Abonos_Cre_Creditos" Association="Self.FK_Abo_Abonos_Cre_Creditos">
+      <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+      <End Role="Abo_Abonos" EntitySet="Abo_Abonos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cra_Creditos_Atrasados_Cre_Creditos" Association="Self.FK_Cra_Creditos_Atrasados_Cre_Creditos">
+      <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+      <End Role="Cra_Creditos_Atrasados" EntitySet="Cra_Creditos_Atrasados" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cre_Creditos_Cli_Clientes" Association="Self.FK_Cre_Creditos_Cli_Clientes">
+      <End Role="Cli_Clientes" EntitySet="Cli_Clientes" />
+      <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cre_Creditos_Usu_Usuarios" Association="Self.FK_Cre_Creditos_Usu_Usuarios">
+      <End Role="Usu_Usuarios" EntitySet="Usu_Usuarios" />
+      <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tpc_Telefonos_Por_Cliente_Cli_Clientes" Association="Self.FK_Tpc_Telefonos_Por_Cliente_Cli_Clientes">
+      <End Role="Cli_Clientes" EntitySet="Cli_Clientes" />
+      <End Role="Tpc_Telefonos_Por_Cliente" EntitySet="Tpc_Telefonos_Por_Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tpc_Telefonos_Por_Cliente_Tel_Telefonos" Association="Self.FK_Tpc_Telefonos_Por_Cliente_Tel_Telefonos">
+      <End Role="Tel_Telefonos" EntitySet="Tel_Telefonos" />
+      <End Role="Tpc_Telefonos_Por_Cliente" EntitySet="Tpc_Telefonos_Por_Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usu_Usuarios_Tip_Tipos_Usuarios" Association="Self.FK_Usu_Usuarios_Tip_Tipos_Usuarios">
+      <End Role="Tip_Tipos_Usuarios" EntitySet="Tip_Tipos_Usuarios" />
+      <End Role="Usu_Usuarios" EntitySet="Usu_Usuarios" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

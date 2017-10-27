@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BD_CPCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Abo_Abonos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Abo_Fecha" Type="date" Nullable="false" />
+          <Property Name="Cre_ID_Credito" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cli_Clientes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cli_Nombre" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Cli_Primer_Apellido" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Cli_Segundo_Apellido" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Cli_Identificacion" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Cli_Fecha_Nacimiento" Type="date" Nullable="false" />
+          <Property Name="Cli_Salario_Neto" Type="money" Nullable="false" />
+          <Property Name="Cli_Limite_Crediticio" Type="money" Nullable="false" />
+          <Property Name="Cli_Saldo_Crediticio" Type="money" Nullable="false" />
+          <Property Name="Cli_Direccion" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cra_Creditos_Atrasados">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cra_Meses_Atrasados" Type="int" Nullable="false" />
+          <Property Name="Cra_Intereses" Type="money" Nullable="false" />
+          <Property Name="Cre_ID_Credito" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cre_Creditos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cre_Monto_Total" Type="money" Nullable="false" />
+          <Property Name="Cre_Monto_Pendiente" Type="money" Nullable="false" />
+          <Property Name="Cre_Cuotas" Type="money" Nullable="false" />
+          <Property Name="Cre_Plazo" Type="int" Nullable="false" />
+          <Property Name="Cre_Fecha_Inicial" Type="date" Nullable="false" />
+          <Property Name="Usu_ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="Cli_ID_Cliente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tip_Tipos_Usuarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tip_Puesto" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usu_Usuarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usu_Nombre" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Usu_Primer_Apellido" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Usu_Segundo_Apellido" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Usu_Nick" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Usu_Contraseña" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tip_ID_Tipo_Usuario" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Abo_Abonos_Cre_Creditos">
+          <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="1" />
+          <End Role="Abo_Abonos" Type="Self.Abo_Abonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cre_Creditos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Abo_Abonos">
+              <PropertyRef Name="Cre_ID_Credito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cra_Creditos_Atrasados_Cre_Creditos">
+          <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="1" />
+          <End Role="Cra_Creditos_Atrasados" Type="Self.Cra_Creditos_Atrasados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cre_Creditos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cra_Creditos_Atrasados">
+              <PropertyRef Name="Cre_ID_Credito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cre_Creditos_Cli_Clientes">
+          <End Role="Cli_Clientes" Type="Self.Cli_Clientes" Multiplicity="1" />
+          <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cli_Clientes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cre_Creditos">
+              <PropertyRef Name="Cli_ID_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cre_Creditos_Usu_Usuarios">
+          <End Role="Usu_Usuarios" Type="Self.Usu_Usuarios" Multiplicity="1" />
+          <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usu_Usuarios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cre_Creditos">
+              <PropertyRef Name="Usu_ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usu_Usuarios_Tip_Tipos_Usuarios">
+          <End Role="Tip_Tipos_Usuarios" Type="Self.Tip_Tipos_Usuarios" Multiplicity="1" />
+          <End Role="Usu_Usuarios" Type="Self.Usu_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tip_Tipos_Usuarios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Usu_Usuarios">
+              <PropertyRef Name="Tip_ID_Tipo_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="actualizarCredito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Credito" Type="int" Mode="In" />
+          <Parameter Name="Nuevo_Monto_Pendiente" Type="money" Mode="In" />
+        </Function>
+        <Function Name="actualizarSaldoCrediticio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Cliente" Type="int" Mode="In" />
+          <Parameter Name="Nuevo_Saldo" Type="money" Mode="In" />
+        </Function>
+        <Function Name="muestraAbonos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="muestraClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="muestraCreditos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="muestraUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="BD_CPCModelStoreContainer">
+          <EntitySet Name="Abo_Abonos" EntityType="Self.Abo_Abonos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cli_Clientes" EntityType="Self.Cli_Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cra_Creditos_Atrasados" EntityType="Self.Cra_Creditos_Atrasados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cre_Creditos" EntityType="Self.Cre_Creditos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tip_Tipos_Usuarios" EntityType="Self.Tip_Tipos_Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usu_Usuarios" EntityType="Self.Usu_Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Abo_Abonos_Cre_Creditos" Association="Self.FK_Abo_Abonos_Cre_Creditos">
+            <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+            <End Role="Abo_Abonos" EntitySet="Abo_Abonos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cra_Creditos_Atrasados_Cre_Creditos" Association="Self.FK_Cra_Creditos_Atrasados_Cre_Creditos">
+            <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+            <End Role="Cra_Creditos_Atrasados" EntitySet="Cra_Creditos_Atrasados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cre_Creditos_Cli_Clientes" Association="Self.FK_Cre_Creditos_Cli_Clientes">
+            <End Role="Cli_Clientes" EntitySet="Cli_Clientes" />
+            <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cre_Creditos_Usu_Usuarios" Association="Self.FK_Cre_Creditos_Usu_Usuarios">
+            <End Role="Usu_Usuarios" EntitySet="Usu_Usuarios" />
+            <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usu_Usuarios_Tip_Tipos_Usuarios" Association="Self.FK_Usu_Usuarios_Tip_Tipos_Usuarios">
+            <End Role="Tip_Tipos_Usuarios" EntitySet="Tip_Tipos_Usuarios" />
+            <End Role="Usu_Usuarios" EntitySet="Usu_Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_CPCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Abo_Abonos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Abo_Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Cre_ID_Credito" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cre_Creditos" Relationship="Self.FK_Abo_Abonos_Cre_Creditos" FromRole="Abo_Abonos" ToRole="Cre_Creditos" />
+        </EntityType>
+        <EntityType Name="Cli_Clientes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cli_Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cli_Primer_Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cli_Segundo_Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cli_Identificacion" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cli_Fecha_Nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Cli_Salario_Neto" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Cli_Limite_Crediticio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Cli_Saldo_Crediticio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Cli_Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cre_Creditos" Relationship="Self.FK_Cre_Creditos_Cli_Clientes" FromRole="Cli_Clientes" ToRole="Cre_Creditos" />
+        </EntityType>
+        <EntityType Name="Cra_Creditos_Atrasados">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cra_Meses_Atrasados" Type="Int32" Nullable="false" />
+          <Property Name="Cra_Intereses" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Cre_ID_Credito" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cre_Creditos" Relationship="Self.FK_Cra_Creditos_Atrasados_Cre_Creditos" FromRole="Cra_Creditos_Atrasados" ToRole="Cre_Creditos" />
+        </EntityType>
+        <EntityType Name="Cre_Creditos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cre_Monto_Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Cre_Monto_Pendiente" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Cre_Cuotas" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Cre_Plazo" Type="Int32" Nullable="false" />
+          <Property Name="Cre_Fecha_Inicial" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Usu_ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="Cli_ID_Cliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Abo_Abonos" Relationship="Self.FK_Abo_Abonos_Cre_Creditos" FromRole="Cre_Creditos" ToRole="Abo_Abonos" />
+          <NavigationProperty Name="Cli_Clientes" Relationship="Self.FK_Cre_Creditos_Cli_Clientes" FromRole="Cre_Creditos" ToRole="Cli_Clientes" />
+          <NavigationProperty Name="Cra_Creditos_Atrasados" Relationship="Self.FK_Cra_Creditos_Atrasados_Cre_Creditos" FromRole="Cre_Creditos" ToRole="Cra_Creditos_Atrasados" />
+          <NavigationProperty Name="Usu_Usuarios" Relationship="Self.FK_Cre_Creditos_Usu_Usuarios" FromRole="Cre_Creditos" ToRole="Usu_Usuarios" />
+        </EntityType>
+        <EntityType Name="Tip_Tipos_Usuarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tip_Puesto" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Usu_Usuarios" Relationship="Self.FK_Usu_Usuarios_Tip_Tipos_Usuarios" FromRole="Tip_Tipos_Usuarios" ToRole="Usu_Usuarios" />
+        </EntityType>
+        <EntityType Name="Usu_Usuarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usu_Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Usu_Primer_Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Usu_Segundo_Apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Usu_Nick" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Usu_Contraseña" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tip_ID_Tipo_Usuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cre_Creditos" Relationship="Self.FK_Cre_Creditos_Usu_Usuarios" FromRole="Usu_Usuarios" ToRole="Cre_Creditos" />
+          <NavigationProperty Name="Tip_Tipos_Usuarios" Relationship="Self.FK_Usu_Usuarios_Tip_Tipos_Usuarios" FromRole="Usu_Usuarios" ToRole="Tip_Tipos_Usuarios" />
+        </EntityType>
+        <Association Name="FK_Abo_Abonos_Cre_Creditos">
+          <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="1" />
+          <End Role="Abo_Abonos" Type="Self.Abo_Abonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cre_Creditos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Abo_Abonos">
+              <PropertyRef Name="Cre_ID_Credito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cre_Creditos_Cli_Clientes">
+          <End Role="Cli_Clientes" Type="Self.Cli_Clientes" Multiplicity="1" />
+          <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cli_Clientes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cre_Creditos">
+              <PropertyRef Name="Cli_ID_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cra_Creditos_Atrasados_Cre_Creditos">
+          <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="1" />
+          <End Role="Cra_Creditos_Atrasados" Type="Self.Cra_Creditos_Atrasados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cre_Creditos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cra_Creditos_Atrasados">
+              <PropertyRef Name="Cre_ID_Credito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cre_Creditos_Usu_Usuarios">
+          <End Role="Usu_Usuarios" Type="Self.Usu_Usuarios" Multiplicity="1" />
+          <End Role="Cre_Creditos" Type="Self.Cre_Creditos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usu_Usuarios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cre_Creditos">
+              <PropertyRef Name="Usu_ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usu_Usuarios_Tip_Tipos_Usuarios">
+          <End Role="Tip_Tipos_Usuarios" Type="Self.Tip_Tipos_Usuarios" Multiplicity="1" />
+          <End Role="Usu_Usuarios" Type="Self.Usu_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tip_Tipos_Usuarios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Usu_Usuarios">
+              <PropertyRef Name="Tip_ID_Tipo_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_CPCEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Abo_Abonos" EntityType="Self.Abo_Abonos" />
+          <EntitySet Name="Cli_Clientes" EntityType="Self.Cli_Clientes" />
+          <EntitySet Name="Cra_Creditos_Atrasados" EntityType="Self.Cra_Creditos_Atrasados" />
+          <EntitySet Name="Cre_Creditos" EntityType="Self.Cre_Creditos" />
+          <EntitySet Name="Tip_Tipos_Usuarios" EntityType="Self.Tip_Tipos_Usuarios" />
+          <EntitySet Name="Usu_Usuarios" EntityType="Self.Usu_Usuarios" />
+          <AssociationSet Name="FK_Abo_Abonos_Cre_Creditos" Association="Self.FK_Abo_Abonos_Cre_Creditos">
+            <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+            <End Role="Abo_Abonos" EntitySet="Abo_Abonos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cre_Creditos_Cli_Clientes" Association="Self.FK_Cre_Creditos_Cli_Clientes">
+            <End Role="Cli_Clientes" EntitySet="Cli_Clientes" />
+            <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cra_Creditos_Atrasados_Cre_Creditos" Association="Self.FK_Cra_Creditos_Atrasados_Cre_Creditos">
+            <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+            <End Role="Cra_Creditos_Atrasados" EntitySet="Cra_Creditos_Atrasados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cre_Creditos_Usu_Usuarios" Association="Self.FK_Cre_Creditos_Usu_Usuarios">
+            <End Role="Usu_Usuarios" EntitySet="Usu_Usuarios" />
+            <End Role="Cre_Creditos" EntitySet="Cre_Creditos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usu_Usuarios_Tip_Tipos_Usuarios" Association="Self.FK_Usu_Usuarios_Tip_Tipos_Usuarios">
+            <End Role="Tip_Tipos_Usuarios" EntitySet="Tip_Tipos_Usuarios" />
+            <End Role="Usu_Usuarios" EntitySet="Usu_Usuarios" />
+          </AssociationSet>
+          <FunctionImport Name="actualizarCredito">
+            <Parameter Name="ID_Credito" Mode="In" Type="Int32" />
+            <Parameter Name="Nuevo_Monto_Pendiente" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="actualizarSaldoCrediticio">
+            <Parameter Name="ID_Cliente" Mode="In" Type="Int32" />
+            <Parameter Name="Nuevo_Saldo" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="muestraAbonos" ReturnType="Collection(BD_CPCModel.muestraAbonos_Result)" />
+          <FunctionImport Name="muestraClientes" ReturnType="Collection(BD_CPCModel.muestraClientes_Result)" />
+          <FunctionImport Name="muestraCreditos" ReturnType="Collection(BD_CPCModel.muestraCreditos_Result)" />
+          <FunctionImport Name="muestraUsuarios" ReturnType="Collection(BD_CPCModel.muestraUsuarios_Result)" />
+        </EntityContainer>
+        <ComplexType Name="muestraAbonos_Result">
+          <Property Type="String" Name="Cliente" Nullable="false" MaxLength="72" />
+          <Property Type="String" Name="Identificación" Nullable="false" MaxLength="15" />
+          <Property Type="Decimal" Name="Cuota" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Monto_Total" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Monto_Pendiente" Nullable="false" Precision="19" />
+          <Property Type="DateTime" Name="Fecha_del_Abono" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="muestraClientes_Result">
+          <Property Type="Int32" Name="Código" Nullable="false" />
+          <Property Type="String" Name="Cliente" Nullable="false" MaxLength="72" />
+          <Property Type="String" Name="Identificación" Nullable="false" MaxLength="15" />
+          <Property Type="DateTime" Name="Fecha_de_Nacimiento" Nullable="false" />
+          <Property Type="Decimal" Name="Salario_Neto" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Límite_Crediticio" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Saldo_Crediticio" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Dirección" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="muestraCreditos_Result">
+          <Property Type="Int32" Name="Código_Crédito" Nullable="false" />
+          <Property Type="Int32" Name="Código_Cliente" Nullable="false" />
+          <Property Type="String" Name="Cliente" Nullable="false" MaxLength="72" />
+          <Property Type="Decimal" Name="Monto_Total" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Monto_Pendiente" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Saldo_Crediticio" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Cuotas" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="Plazo__Meses_" Nullable="false" />
+          <Property Type="DateTime" Name="Inicio_del_Crédito" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="muestraUsuarios_Result">
+          <Property Type="Int32" Name="Código" Nullable="false" />
+          <Property Type="String" Name="Usuario" Nullable="false" MaxLength="72" />
+          <Property Type="String" Name="NickName" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Contraseña" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Puesto" Nullable="false" MaxLength="15" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_CPCModelStoreContainer" CdmEntityContainer="BD_CPCEntities1">
+          <EntitySetMapping Name="Abo_Abonos">
+            <EntityTypeMapping TypeName="BD_CPCModel.Abo_Abonos">
+              <MappingFragment StoreEntitySet="Abo_Abonos">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Abo_Fecha" ColumnName="Abo_Fecha" />
+                <ScalarProperty Name="Cre_ID_Credito" ColumnName="Cre_ID_Credito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cli_Clientes">
+            <EntityTypeMapping TypeName="BD_CPCModel.Cli_Clientes">
+              <MappingFragment StoreEntitySet="Cli_Clientes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Cli_Nombre" ColumnName="Cli_Nombre" />
+                <ScalarProperty Name="Cli_Primer_Apellido" ColumnName="Cli_Primer_Apellido" />
+                <ScalarProperty Name="Cli_Segundo_Apellido" ColumnName="Cli_Segundo_Apellido" />
+                <ScalarProperty Name="Cli_Identificacion" ColumnName="Cli_Identificacion" />
+                <ScalarProperty Name="Cli_Fecha_Nacimiento" ColumnName="Cli_Fecha_Nacimiento" />
+                <ScalarProperty Name="Cli_Salario_Neto" ColumnName="Cli_Salario_Neto" />
+                <ScalarProperty Name="Cli_Limite_Crediticio" ColumnName="Cli_Limite_Crediticio" />
+                <ScalarProperty Name="Cli_Saldo_Crediticio" ColumnName="Cli_Saldo_Crediticio" />
+                <ScalarProperty Name="Cli_Direccion" ColumnName="Cli_Direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cra_Creditos_Atrasados">
+            <EntityTypeMapping TypeName="BD_CPCModel.Cra_Creditos_Atrasados">
+              <MappingFragment StoreEntitySet="Cra_Creditos_Atrasados">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Cra_Meses_Atrasados" ColumnName="Cra_Meses_Atrasados" />
+                <ScalarProperty Name="Cra_Intereses" ColumnName="Cra_Intereses" />
+                <ScalarProperty Name="Cre_ID_Credito" ColumnName="Cre_ID_Credito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cre_Creditos">
+            <EntityTypeMapping TypeName="BD_CPCModel.Cre_Creditos">
+              <MappingFragment StoreEntitySet="Cre_Creditos">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Cre_Monto_Total" ColumnName="Cre_Monto_Total" />
+                <ScalarProperty Name="Cre_Monto_Pendiente" ColumnName="Cre_Monto_Pendiente" />
+                <ScalarProperty Name="Cre_Cuotas" ColumnName="Cre_Cuotas" />
+                <ScalarProperty Name="Cre_Plazo" ColumnName="Cre_Plazo" />
+                <ScalarProperty Name="Cre_Fecha_Inicial" ColumnName="Cre_Fecha_Inicial" />
+                <ScalarProperty Name="Usu_ID_Usuario" ColumnName="Usu_ID_Usuario" />
+                <ScalarProperty Name="Cli_ID_Cliente" ColumnName="Cli_ID_Cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tip_Tipos_Usuarios">
+            <EntityTypeMapping TypeName="BD_CPCModel.Tip_Tipos_Usuarios">
+              <MappingFragment StoreEntitySet="Tip_Tipos_Usuarios">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Tip_Puesto" ColumnName="Tip_Puesto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usu_Usuarios">
+            <EntityTypeMapping TypeName="BD_CPCModel.Usu_Usuarios">
+              <MappingFragment StoreEntitySet="Usu_Usuarios">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Usu_Nombre" ColumnName="Usu_Nombre" />
+                <ScalarProperty Name="Usu_Primer_Apellido" ColumnName="Usu_Primer_Apellido" />
+                <ScalarProperty Name="Usu_Segundo_Apellido" ColumnName="Usu_Segundo_Apellido" />
+                <ScalarProperty Name="Usu_Nick" ColumnName="Usu_Nick" />
+                <ScalarProperty Name="Usu_Contraseña" ColumnName="Usu_Contraseña" />
+                <ScalarProperty Name="Tip_ID_Tipo_Usuario" ColumnName="Tip_ID_Tipo_Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="actualizarCredito" FunctionName="BD_CPCModel.Store.actualizarCredito" />
+          <FunctionImportMapping FunctionImportName="actualizarSaldoCrediticio" FunctionName="BD_CPCModel.Store.actualizarSaldoCrediticio" />
+          <FunctionImportMapping FunctionImportName="muestraAbonos" FunctionName="BD_CPCModel.Store.muestraAbonos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CPCModel.muestraAbonos_Result">
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Identificación" ColumnName="Identificación" />
+                <ScalarProperty Name="Cuota" ColumnName="Cuota" />
+                <ScalarProperty Name="Monto_Total" ColumnName="Monto Total" />
+                <ScalarProperty Name="Monto_Pendiente" ColumnName="Monto Pendiente" />
+                <ScalarProperty Name="Fecha_del_Abono" ColumnName="Fecha del Abono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="muestraClientes" FunctionName="BD_CPCModel.Store.muestraClientes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CPCModel.muestraClientes_Result">
+                <ScalarProperty Name="Código" ColumnName="Código" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Identificación" ColumnName="Identificación" />
+                <ScalarProperty Name="Fecha_de_Nacimiento" ColumnName="Fecha de Nacimiento" />
+                <ScalarProperty Name="Salario_Neto" ColumnName="Salario Neto" />
+                <ScalarProperty Name="Límite_Crediticio" ColumnName="Límite Crediticio" />
+                <ScalarProperty Name="Saldo_Crediticio" ColumnName="Saldo Crediticio" />
+                <ScalarProperty Name="Dirección" ColumnName="Dirección" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="muestraCreditos" FunctionName="BD_CPCModel.Store.muestraCreditos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CPCModel.muestraCreditos_Result">
+                <ScalarProperty Name="Código_Crédito" ColumnName="Código Crédito" />
+                <ScalarProperty Name="Código_Cliente" ColumnName="Código Cliente" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Monto_Total" ColumnName="Monto Total" />
+                <ScalarProperty Name="Monto_Pendiente" ColumnName="Monto Pendiente" />
+                <ScalarProperty Name="Saldo_Crediticio" ColumnName="Saldo Crediticio" />
+                <ScalarProperty Name="Cuotas" ColumnName="Cuotas" />
+                <ScalarProperty Name="Plazo__Meses_" ColumnName="Plazo (Meses)" />
+                <ScalarProperty Name="Inicio_del_Crédito" ColumnName="Inicio del Crédito" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="muestraUsuarios" FunctionName="BD_CPCModel.Store.muestraUsuarios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CPCModel.muestraUsuarios_Result">
+                <ScalarProperty Name="Código" ColumnName="Código" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Puesto" ColumnName="Puesto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
